@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+</head>
+
+<body>
+    <h1>Відправка Push Notification для всіх підписників</h1>
+    <form id="notificationForm">
+        <div>
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required>
+            <p><b>Опис:</b> Заголовок повідомлення. <br>
+                <b>Приклад значення:</b> "Нове повідомлення" <br>
+                <b>Використання:</b> Це текст, який буде відображатися в заголовку повідомлення.<br>
+            </p>
+        </div>
+        <div>
+            <label for="message">Message:</label>
+            <input type="text" id="message" name="message" required>
+            <p><b>Опис:</b> Текст повідомлення. <br>
+                <b>Приклад значення:</b> У вас нове повідомлення від користувача Іван." <br>
+                <b>Використання:</b> Основне повідомлення, яке буде відображатися користувачу.<br>
+            </p>
+        </div>
+        <div>
+            <label for="icon">Icon URL:</label>
+            <input type="text" id="icon" name="icon">
+            <p><b>Опис:</b>URL іконки повідомлення. <br>
+                <b>Приклад значення:</b>"https://example.com/icon.png" <br>
+                <b>Використання:</b> URL зображення, яке буде відображатися як іконка повідомлення. Якщо не
+                вказано, використовується іконка за замовчуванням.<br>
+            </p>
+        </div>
+        <div>
+            <label for="badge">Badge URL:</label>
+            <input type="text" id="badge" name="badge">
+            <p><b>Опис:</b>URL значка повідомлення (зазвичай використовується для відображення маленького значка в
+                системному
+                треї або на іконці додатку).<br>
+                <b>Приклад значення:</b>"https://example.com/badge.png" <br>
+                <b>Використання:</b>URL зображення, яке буде використовуватися як значок повідомлення. Зазвичай це
+                маленьке зображення, яке відображається поверх основної іконки.<br>
+            </p>
+        </div>
+        <div>
+            <label for="url">Target URL:</label>
+            <input type="text" id="url" name="url">
+            <p><b>Опис:</b>URL-адреса, яка буде відкрита при кліку на повідомлення.<br>
+                <b>Приклад значення:</b>"https://example.com/messages" <br>
+                <b>Використання:</b>Адреса, на яку буде перенаправлено користувача при кліку на повідомлення. Це
+                корисно для направлення користувачів на конкретні сторінки вашого додатку або веб-сайту.<br>
+            </p>
+        </div>
+        <button type="submit">Send Notification</button>
+    </form>
+
+    <script>
+        document.getElementById('notificationForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const title = document.getElementById('title').value;
+            const message = document.getElementById('message').value;
+            const icon = document.getElementById('icon').value;
+            const badge = document.getElementById('badge').value;
+            const url = document.getElementById('url').value;
+
+            const payload = {
+                title,
+                message,
+                icon,
+                badge,
+                url
+            };
+
+            try {
+                const response = await fetch('https://perederiy.space/sendNotificationToAll', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+                alert(data.message);
+            } catch (error) {
+                console.error('Error sending notification:', error);
+                alert('Error sending notification');
+            }
+        });
+    </script>
+</body>
+
+</html>
