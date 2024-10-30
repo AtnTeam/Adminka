@@ -5,95 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background-color: #f4f6f9;
-            font-family: Arial, sans-serif;
-        }
-
-        h1 {
-            text-align: center;
-            color: #333;
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-        }
-
-        form {
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            width: 90%;
-            max-width: 500px;
-        }
-
-        form div {
-            margin-bottom: 1.5rem;
-        }
-
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-            color: #555;
-        }
-
-        input[type="text"],
-        select {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-            font-size: 1rem;
-            color: #333;
-        }
-
-        input[type="text"]:focus,
-        select:focus {
-            outline: none;
-            border-color: #007bff;
-            box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
-        }
-
-        button {
-            width: 100%;
-            padding: 0.8rem;
-            background-color: #007bff;
-            border: none;
-            border-radius: 5px;
-            color: #ffffff;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        button:focus {
-            outline: none;
-            box-shadow: 0 0 5px rgba(0, 123, 255, 0.4);
-        }
-
-        /* Mobile adjustments */
-        @media (max-width: 500px) {
-            form {
-                padding: 15px;
-            }
-
-            h1 {
-                font-size: 1.5rem;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
@@ -116,7 +28,8 @@
             <input type="text" id="badge" name="badge">
         </div>
         <div>
-            <label for="url">Target URL:</label>
+            <label for="url">Target URL <i style="font-weight: 100;">(куди буде редірект підписника по кліку на
+                    Push)</i>:</label>
             <input type="text" id="url" name="url">
         </div>
         <div>
@@ -126,6 +39,15 @@
                 <option value="regDepZero">Підписники з reg = 0 та dep = 0</option>
                 <option value="regGreaterThanOneDepZero">Підписники з reg ≥ 1 та dep = 0</option>
                 <option value="depOneOrMore">Підписники з dep ≥ 1</option>
+            </select>
+        </div>
+        <div>
+            <label for="pwaId">Select PWA ID:</label>
+            <select id="pwaId" name="pwaId" required>
+                <option value="">-- Оберіть ID PWA --</option>
+                <option value="prm_egyptan_king">prm_egyptan_king</option>
+                <option value="pwa2">PWA 2</option>
+                <option value="pwa3">PWA 3</option>
             </select>
         </div>
         <button type="submit">Send Notification</button>
@@ -141,6 +63,13 @@
             const badge = document.getElementById('badge').value;
             const url = document.getElementById('url').value;
             const filter = document.getElementById('filter').value;
+            const pwaId = document.getElementById('pwaId').value;
+
+            // Перевірка, чи вибрано значення ID PWA
+            if (!pwaId) {
+                alert('Будь ласка, оберіть ID PWA.');
+                return;
+            }
 
             const payload = {
                 title,
@@ -148,7 +77,8 @@
                 icon,
                 badge,
                 url,
-                filter
+                filter,
+                pwaId
             };
 
             try {
