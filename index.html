@@ -12,19 +12,19 @@
     <form id="notificationForm">
         <h1>Відправка Push Notification</h1>
         <div>
-            <label for="title">Title:</label>
+            <label for="title"> 1. Title:</label>
             <input type="text" id="title" name="title" required>
         </div>
         <div>
-            <label for="message">Message:</label>
+            <label for="message">2. Message:</label>
             <input type="text" id="message" name="message" required>
         </div>
         <div>
-            <label for="icon">Icon URL:</label>
+            <label for="icon">3. Icon URL (іконка):</label>
             <input type="text" id="icon" name="icon">
         </div>
         <div>
-            <label for="badge">Badge URL:</label>
+            <label for="badge">4. Badge URL (іконка):</label>
             <input type="text" id="badge" name="badge">
         </div>
         <div>
@@ -49,6 +49,11 @@
                 <option value="pwa2">PWA 2</option>
                 <option value="pwa3">PWA 3</option>
             </select>
+        </div>
+
+        <div>
+            <p>👇 Вигляд push </p>
+            <img style="width: 100%;" src="img/push.jpg" alt="photo">
         </div>
         <button type="submit">Send Notification</button>
     </form>
